@@ -1,0 +1,5 @@
+*.png
+*.jpg
+*.jpeg
+!wp-theme/mounee-consulting/assets/images/
+add-akansha.php

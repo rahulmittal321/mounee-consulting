@@ -9,6 +9,9 @@
 - **SFTP/SSH User:** [ASK]
 - **SFTP/SSH Password:** [ASK]
 - **Domain Registrar:** [ASK if needed]
+- **GitHub Repo:** https://github.com/rahulmittal321/mounee-consulting (private)
+- **SSH key:** Already configured at ~/.ssh/id_ed25519 (shared VPS key, works for both agents)
+- **Git remote:** git@github.com:rahulmittal321/mounee-consulting.git
 
 ## What This Project Is
 Mounee Consulting (mouneeconsulting.org) is a recruitment agency website for Dr. Parul Sharma (Rahul's wife). It's a WordPress theme built from scratch.
@@ -88,3 +91,13 @@ wp-theme/mounee-consulting/
 2. Re-zip: `cd wp-theme && zip -r mounee-consulting.zip mounee-consulting/`
 3. Upload to WordPress via Appearance → Themes → Add New → Upload
 4. Or if direct server access: copy theme folder to `wp-content/themes/`
+
+## Git Workflow
+```bash
+cd /data/.openclaw/workspace-wife/mounee-consulting
+# After making changes:
+git add -A
+git commit -m "describe your changes"
+GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push
+```
+First push: `git remote add origin git@github.com:rahulmittal321/mounee-consulting.git && GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git push -u origin main`

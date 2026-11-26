@@ -268,8 +268,27 @@
     /**
      * Initialize all functions when DOM is ready
      */
+    function initSectorRotator() {
+        var rotator = document.querySelector('.sector-rotator');
+        if (!rotator) return;
+        var word = rotator.querySelector('.sector-word');
+        var sectors = (rotator.getAttribute('data-sectors') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        if (!word || sectors.length < 2) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var i = 0;
+        setInterval(function () {
+            i = (i + 1) % sectors.length;
+            word.classList.add('is-swapping');
+            setTimeout(function () {
+                word.innerHTML = sectors[i];
+                word.classList.remove('is-swapping');
+            }, 400);
+        }, 2800);
+    }
+
     function init() {
         initMobileMenu();
+        initSectorRotator();
         initSmoothScroll();
         initStickyHeader();
         initGallery();

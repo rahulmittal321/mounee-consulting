@@ -1,560 +1,197 @@
 <?php
-/**
- * Front Page Template
- *
- * @package Mounee_Consulting
- */
+/* Front page — Meridian redesign (Nov 2026). Previous version: front-page-backup-nov26.php */
+add_action( 'wp_enqueue_scripts', function () {
+  wp_dequeue_style( 'mounee-consulting-style' ); wp_dequeue_style( 'mounee-google-fonts' );
+  wp_dequeue_script( 'mounee-consulting-script' );
+}, 100 );
+?><!doctype html><html <?php language_attributes(); ?>><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B1D3A;--blue:#1E5FBB;--amber:#F59E0B;--ink:#0B1D3A;--paper:#F7F5F0}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+.serif{font-family:'Playfair Display',serif}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px 6vw;color:#fff;background:linear-gradient(180deg,rgba(11,29,58,.55),rgba(11,29,58,0));transition:padding .35s ease,background .35s ease,box-shadow .35s ease}
+nav .brand{display:flex;align-items:center}nav .brand img{height:110px;width:auto;display:block;transition:height .35s ease;filter:drop-shadow(0 2px 12px rgba(0,0,0,.45))}
+nav.scrolled{padding:10px 6vw;background:rgba(11,29,58,.96);backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(0,0,0,.25)}nav.scrolled .brand img{height:48px;filter:none}
+.logo{font-family:'Playfair Display';font-size:24px;letter-spacing:.5px}.logo b{color:var(--amber);font-weight:500}
+nav ul{display:flex;gap:38px;list-style:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.cta{border:1px solid rgba(255,255,255,.5);padding:12px 22px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-decoration:none}
+.hero{position:relative;height:100vh;min-height:640px;max-height:900px;overflow:hidden;background:var(--navy);color:#fff}
+.slide{position:absolute;inset:0;opacity:0;animation:fade 36s infinite}
+.slide img{width:100%;height:100%;object-fit:cover;animation:kb 36s infinite;filter:grayscale(.1) contrast(1.05) brightness(1.05)}
+.slide:nth-child(1),.slide:nth-child(1) img{animation-delay:-0.01s}.slide:nth-child(2),.slide:nth-child(2) img{animation-delay:5.99s}.slide:nth-child(3),.slide:nth-child(3) img{animation-delay:11.99s}.slide:nth-child(4),.slide:nth-child(4) img{animation-delay:17.99s}.slide:nth-child(5),.slide:nth-child(5) img{animation-delay:23.99s}.slide:nth-child(6),.slide:nth-child(6) img{animation-delay:29.99s}
+.slide:first-child{opacity:1}
+@keyframes fade{0%{opacity:0}4%{opacity:1}17%{opacity:1}21%{opacity:0}100%{opacity:0}}
+@keyframes kb{0%{transform:scale(1.12)}21%{transform:scale(1)}100%{transform:scale(1)}}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,29,58,.82) 0%,rgba(11,29,58,.35) 50%,rgba(11,29,58,0) 100%),linear-gradient(0deg,rgba(11,29,58,.6),transparent 30%)}
+.hcopy{position:absolute;left:6vw;bottom:clamp(60px,14vh,130px);max-width:760px}
+.eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:14px}.eyebrow:before{content:"";width:40px;height:1px;background:var(--amber)}
+h1{font-family:'Playfair Display';font-weight:500;font-size:clamp(42px,6.2vw,92px);line-height:1.02;margin:26px 0;letter-spacing:-.01em}h1 em{color:var(--amber);font-style:italic}
+.hcopy p{font-size:18px;line-height:1.6;font-weight:300;opacity:.85;max-width:540px}
+.btns{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}.b1{background:var(--amber);color:var(--navy);padding:17px 30px;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}.b2{color:#fff;padding:17px 4px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4)}
+.ticker{position:absolute;right:6vw;bottom:clamp(60px,14vh,130px);width:250px;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.ticker li{list-style:none;display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.15);opacity:.4;animation:tk 36s infinite}
+.ticker li:nth-child(1){animation-delay:0s}.ticker li:nth-child(2){animation-delay:6s}.ticker li:nth-child(3){animation-delay:12s}.ticker li:nth-child(4){animation-delay:18s}.ticker li:nth-child(5){animation-delay:24s}.ticker li:nth-child(6){animation-delay:30s}
+@keyframes tk{0%,17%{opacity:1;color:var(--amber)}21%,100%{opacity:.4;color:#fff}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy);color:#fff;border-top:1px solid rgba(255,255,255,.1)}
+.stats div{padding:44px 6vw 44px;border-right:1px solid rgba(255,255,255,.1)}.stats b{font-family:'Playfair Display';font-weight:500;font-size:46px;color:#fff;display:block}.stats b i{color:var(--amber);font-style:normal}.stats span{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+.sectors{padding:120px 0 110px;background:var(--paper);overflow:hidden}
+.shead{display:flex;justify-content:space-between;align-items:end;padding:0 6vw 56px;gap:40px}
+h2{font-family:'Playfair Display';font-weight:500;font-size:clamp(34px,4vw,58px);line-height:1.08;max-width:640px}h2 em{color:var(--blue)}
+.shead p{max-width:380px;line-height:1.7;color:#4a5568}
+.marquee{display:flex;width:max-content;gap:22px;margin-bottom:22px}
 
-get_header();
-?>
 
-<!-- Hero Section -->
-<section class="hero-section" id="home">
-    <div class="hero-overlay"></div>
-    <div class="hero-background" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/10.jpg');"></div>
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title"><?php echo esc_html( get_theme_mod( 'mounee_hero_title', 'Helping Companies Hire the Right Talent' ) ); ?></h1>
-            <p class="hero-subtitle"><?php echo esc_html( get_theme_mod( 'mounee_hero_subtitle', 'Expert recruitment solutions for finding exceptional talent that drives your business forward.' ) ); ?></p>
-            
-            <!-- Recruitment Process Steps -->
-            <div class="recruitment-process">
-                <div class="process-step">
-                    <div class="step-icon">1</div>
-                    <h3>Understand</h3>
-                </div>
-                <div class="process-arrow">→</div>
-                <div class="process-step">
-                    <div class="step-icon">2</div>
-                    <h3>Source & Screen</h3>
-                </div>
-                <div class="process-arrow">→</div>
-                <div class="process-step">
-                    <div class="step-icon">3</div>
-                    <h3>Evaluate</h3>
-                </div>
-                <div class="process-arrow">→</div>
-                <div class="process-step">
-                    <div class="step-icon">4</div>
-                    <h3>Place</h3>
-                </div>
-            </div>
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 11px))}}
+.tile{position:relative;width:360px;height:240px;overflow:hidden;flex:none}
+.m2 .tile{width:300px;height:200px}
+.tile img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:.6s}
+.tile:after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,95,187,.55),rgba(11,29,58,.88));mix-blend-mode:multiply;transition:.6s}
+.tile:hover img{filter:none;transform:scale(1.05)}.tile:hover:after{opacity:.35}
+figcaption{position:absolute;left:22px;bottom:20px;z-index:2;color:#fff;font-family:'Playfair Display';font-size:24px}
+figcaption span{display:block;font-family:Inter;font-size:11px;letter-spacing:.2em;color:var(--amber);margin-bottom:6px}
+.fade-edges{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.why{display:grid;grid-template-columns:1.1fr 1fr;background:#fff}
+.why .img{background:url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=70&auto=format&fit=crop) center/cover;min-height:560px;position:relative}
+.why .img:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,29,58,.6),transparent)}
+.why .txt{padding:110px 6vw}
+.steps{margin-top:44px}.steps>div{display:grid;grid-template-columns:60px 1fr;padding:22px 0;border-top:1px solid #e5e1d8}.steps b{font-family:'Playfair Display';color:var(--amber);font-size:22px;font-weight:500}.steps h4{font-size:17px;font-weight:600;margin-bottom:4px}.steps p{color:#5a6577;font-size:15px;line-height:1.6}
+@media(max-width:820px){.shade{background:linear-gradient(0deg,rgba(11,29,58,.9) 0%,rgba(11,29,58,.45) 50%,rgba(11,29,58,.1) 100%)}}
+@media(prefers-reduced-motion:reduce){.slide,.slide img,.marquee,.ticker li{animation:none}}
+@media(max-width:820px){nav ul,.ticker,nav .cta{display:none}nav{padding:14px 20px}nav .brand img{height:72px}nav.scrolled{padding:8px 20px}nav.scrolled .brand img{height:38px}.hcopy{left:24px;right:24px;bottom:clamp(48px,9vh,90px)}.hcopy p{font-size:16px}
+.stats{grid-template-columns:1fr 1fr}.stats div{padding:28px 24px}.stats b{font-size:34px}
+.shead{flex-direction:column;align-items:start;padding:0 24px 40px}.sectors{padding:80px 0}
+.tile{width:240px;height:170px}.m2 .tile{width:210px;height:150px}figcaption{font-size:19px}
+.why{grid-template-columns:1fr}.why .img{min-height:300px}.why .txt{padding:64px 24px}}
 
-            <div class="hero-cta">
-                <a href="<?php echo esc_url( get_theme_mod( 'mounee_hero_cta_primary_link', '#contact' ) ); ?>" class="btn btn-primary">
-                    <?php echo esc_html( get_theme_mod( 'mounee_hero_cta_primary', 'Find Your Next Hire' ) ); ?>
-                </a>
-                <a href="<?php echo esc_url( get_theme_mod( 'mounee_hero_cta_secondary_link', '#services' ) ); ?>" class="btn btn-secondary">
-                    <?php echo esc_html( get_theme_mod( 'mounee_hero_cta_secondary', 'Our Services' ) ); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+.services{padding:120px 6vw;background:var(--paper)}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:1px solid #d9d4c7}
+.svc>div{padding:40px 36px 10px 0;border-right:1px solid #e5e1d8;margin-right:36px}.svc>div:last-child{border-right:0}
+.svc svg{width:40px;height:40px;stroke:var(--blue);fill:none;stroke-width:1.4}
+.svc h3{font-family:'Playfair Display';font-weight:500;font-size:26px;margin:22px 0 12px}.svc p{color:#5a6577;line-height:1.7;font-size:15px}
+.svc a{display:inline-block;margin-top:20px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--amber);padding-bottom:4px}
+.reach{background:var(--navy);color:#fff;padding:120px 6vw;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
+.reach h2 em{color:var(--amber)}.reach p{opacity:.7;line-height:1.7;margin-top:22px;max-width:420px}
+.locs{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.15)}
+.locs div{padding:26px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;align-items:center;gap:16px;font-family:'Playfair Display';font-size:24px}
+.locs div:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 6px rgba(245,158,11,.15)}
+.locs small{font-family:Inter;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-left:auto;padding-right:24px}
+.proof{padding:130px 6vw 110px;background:#fff;text-align:center}
+.proof blockquote{font-family:'Playfair Display';font-style:italic;font-size:clamp(26px,3vw,40px);line-height:1.35;max-width:980px;margin:30px auto 26px;color:var(--navy)}
+.proof cite{font-style:normal;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#7a8494}
+.clients{overflow:hidden;margin-top:80px;padding-top:50px;border-top:1px solid #ece8df;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.ctrack{display:flex;width:max-content;animation:cscroll 45s linear infinite}.clients:hover .ctrack{animation-play-state:paused}@keyframes cscroll{to{transform:translateX(-50%)}}@media (prefers-reduced-motion:reduce){.ctrack{animation-duration:120s}}
+.clients span{font-family:'Playfair Display';font-size:22px;color:#9aa3b2;letter-spacing:.02em;white-space:nowrap;padding:0 28px;position:relative}.clients span:after{content:'\2022';position:absolute;right:-4px;color:#d8c9a3}
+.dual{display:grid;grid-template-columns:1fr 1fr}
+.dual a{position:relative;padding:110px 6vw;color:#fff;text-decoration:none;overflow:hidden;background-size:cover;background-position:center}
+.dual a:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(11,29,58,.92),rgba(30,95,187,.7))}
+.dual a>*{position:relative}.dual a:nth-child(2):before{background:linear-gradient(120deg,rgba(11,29,58,.95),rgba(11,29,58,.75))}
+.dual h3{font-family:'Playfair Display';font-weight:500;font-size:44px;margin:18px 0 14px}.dual p{opacity:.75;max-width:380px;line-height:1.6}
+.dual .go{display:inline-block;margin-top:30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--amber);padding-bottom:5px}
+footer{background:#07142a;color:#c9d1de;padding:90px 6vw 40px;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:50px}
+footer img{height:84px}footer h5{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:20px;font-weight:500}
+footer li{list-style:none;margin-bottom:12px;opacity:.8}footer p{line-height:1.7;opacity:.7;margin-top:20px;max-width:300px}
+.fbot{display:flex;justify-content:space-between;margin-top:70px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;opacity:.5}
+@media(max-width:820px){.services{padding:80px 24px}.svc{grid-template-columns:1fr}.svc>div{border-right:0;margin-right:0;padding:32px 0;border-bottom:1px solid #e5e1d8}
+.reach{grid-template-columns:1fr;padding:80px 24px;gap:40px}.locs div{font-size:19px}.proof{padding:80px 24px}.clients span{font-size:17px;padding:0 20px}
+.dual{grid-template-columns:1fr}.dual a{padding:70px 24px}.dual h3{font-size:32px}footer{padding:60px 24px 30px}.fgrid{grid-template-columns:1fr 1fr}.fgrid>div:first-child{grid-column:1/-1}.fbot{flex-direction:column;gap:8px}}
 
-<!-- About Section -->
-<section class="about-section" id="about">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-image">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/about.jpg" alt="About Mounee Consulting">
-            </div>
-            <div class="about-content">
-                <h2 class="section-title">Your Partner in Talent Excellence</h2>
-                <p class="lead">Founded by Dr. Parul Sharma, Mounee Consulting has emerged as a trusted partner for organizations seeking exceptional talent and transformative learning solutions.</p>
-                <p>We combine deep industry expertise with innovative recruitment methodologies to connect companies with professionals who drive real business impact. Our holistic approach extends beyond placement to include corporate training, wellness programs, and career development.</p>
-                
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">2</div>
-                        <div class="stat-label">Offices</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Customers</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">Team Members</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+.lead{padding:120px 6vw;background:var(--paper)}
+.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:60px}
+.lgrid figure{margin:0}.lgrid .ph{aspect-ratio:4/5;overflow:hidden;background:#e9e5dc}
+.lgrid img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1);transition:.6s}
+.lgrid figure:hover img{filter:none;transform:scale(1.03)}
+.lgrid h3{font-family:'Playfair Display';font-weight:500;font-size:26px;margin:24px 0 6px}
+.lgrid .role{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:600}
+.lgrid p{color:#5a6577;line-height:1.7;font-size:15px;margin-top:12px}
+.lgrid .in{display:inline-block;margin-top:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);text-decoration:none}
+.moments{padding:120px 6vw;background:#fff}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px;margin-top:56px}
+.mgrid div{overflow:hidden;position:relative}.mgrid div:nth-child(1){grid-column:span 2;grid-row:span 2}.mgrid div:nth-child(6){grid-column:span 2}
+.mgrid img{width:100%;height:100%;object-fit:cover;transition:.7s}.mgrid div:hover img{transform:scale(1.05)}
+.mgrid span{position:absolute;left:0;right:0;bottom:0;padding:30px 18px 14px;color:#fff;font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(0deg,rgba(11,29,58,.85),transparent);opacity:0;transition:.4s}
+.mgrid div:hover span{opacity:1}
+@media(max-width:820px){.lead,.moments{padding:80px 24px}.lgrid{grid-template-columns:1fr;gap:50px}.mgrid{grid-template-columns:1fr 1fr;grid-auto-rows:150px}.mgrid div:nth-child(6){grid-column:span 2}}
 
-<!-- Services Section -->
-<section class="services-section" id="services">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">Comprehensive solutions for talent acquisition, development, and organizational wellness</p>
-        </div>
+/* ===== MOBILE COMPACT (Rahul 26 Nov): swipe rails instead of stacks ===== */
+@media(max-width:820px){
+.hero{height:86vh;min-height:560px}
+h1{font-size:40px;margin:18px 0}.hcopy p{font-size:15px;line-height:1.55}.btns{margin-top:24px;gap:10px}.b1,.b2{padding:14px 18px;font-size:12px}
+.stats{grid-template-columns:repeat(4,1fr)}.stats div{padding:20px 10px;text-align:center}.stats b{font-size:24px}.stats span{font-size:9px;letter-spacing:.08em;display:block;line-height:1.3;margin-top:4px}
+.sectors,.services,.lead,.moments,.reach,.proof{padding:56px 0}
+.shead{padding:0 20px 26px!important;gap:10px}.shead p{display:none}h2{font-size:30px!important}
+.tile{width:200px;height:140px}figcaption{font-size:17px;left:14px;bottom:12px}
+.why .img{display:none}.why .txt{padding:56px 20px}.steps{margin-top:24px}.steps>div{grid-template-columns:40px 1fr;padding:14px 0}.steps p{display:none}.steps h4{font-size:15px;margin:0}
+.rail{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:0 20px 8px!important;margin-top:0!important;border:0!important;-ms-overflow-style:none;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}.rail>*{flex:0 0 78%;scroll-snap-align:start}
+.swipe{display:block!important;padding:10px 20px 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a93a3}
+.svc>div{background:#fff;padding:24px 20px!important;border:1px solid #e5e1d8!important;margin:0!important}.svc h3{font-size:21px;margin:14px 0 8px}.svc p{font-size:14px}
+.reach{gap:22px}.reach>div:first-child{padding:0 20px}.reach p{display:none}
+.locs{grid-template-columns:1fr 1fr 1fr;padding:0 20px;border:0}.locs div{font-size:15px;padding:12px 0;gap:8px}.locs small{display:none}
+.lgrid>figure{flex-basis:66%}.lgrid h3{font-size:20px;margin:14px 0 4px}.lgrid p{display:none}.lgrid .in{margin-top:8px}
+.mgrid{grid-auto-rows:auto}.mgrid>div{flex-basis:70%;height:200px;grid-column:auto!important;grid-row:auto!important}
+.proof blockquote{font-size:22px;margin:18px 20px}.clients{margin:36px 0 0;padding-top:28px}.clients span{font-size:15px;padding:0 16px}.ctrack{animation-duration:35s}
+.dual{grid-template-columns:1fr 1fr}.dual a{padding:36px 16px}.dual h3{font-size:22px;margin:10px 0 6px}.dual p{display:none}.dual .go{margin-top:14px;font-size:10px}.dual .eyebrow{font-size:9px;letter-spacing:.14em}.dual .eyebrow:before{width:14px}
+footer{padding:40px 20px 24px}.fgrid{grid-template-columns:1fr;gap:18px}.fgrid>div:nth-child(2),.fgrid>div:nth-child(3){display:none}footer img{height:56px}footer p{margin-top:10px}.fbot{margin-top:28px}
+}
+.swipe{display:none}
 
-        <div class="services-grid">
-            <!-- Recruitment - Featured -->
-            <div class="service-card featured">
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                </div>
-                <h3>Recruitment Services</h3>
-                <p>Strategic talent acquisition solutions that connect you with exceptional professionals who align with your company culture and drive business growth.</p>
-                <ul class="service-features">
-                    <li>Executive Search</li>
-                    <li>Volume Hiring</li>
-                    <li>Specialized Recruitment</li>
-                    <li>Contract Staffing</li>
-                </ul>
-            </div>
+.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:120px 6vw;background:var(--paper)}
+.contact .info p{color:#5a6577;line-height:1.7;margin-top:22px;max-width:380px}
+.contact dl{margin-top:40px;border-top:1px solid #d9d4c7}.contact dt{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-top:22px}
+.contact dd{margin:8px 0 0;font-size:15px;line-height:1.7}.contact dd a{color:var(--navy);text-decoration:none;border-bottom:1px solid #d9d4c7}
+.cform{background:#fff;padding:44px;border:1px solid #e5e1d8}
+.cform .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cform input,.cform textarea{width:100%;border:0;border-bottom:1px solid #cfd6e2;padding:14px 2px;font:15px Inter,sans-serif;color:var(--navy);background:transparent;margin-bottom:18px;outline:none;transition:border-color .3s}
+.cform input:focus,.cform textarea:focus{border-color:var(--blue)}.cform textarea{resize:vertical;min-height:110px}
+.cform button{width:100%;border:0;background:var(--amber);color:var(--navy);padding:18px;font:600 13px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin-top:8px}
+#formStatus{display:none;text-align:center;margin-top:14px;font-size:14px;color:#16A34A}
+@media(max-width:820px){.contact{grid-template-columns:1fr;gap:28px;padding:56px 20px}.contact .info p{display:none}.contact dl{margin-top:20px}.cform{padding:24px 18px}.cform .row{grid-template-columns:1fr;gap:0}.cform input,.cform textarea{margin-bottom:10px}}
+nav ul a{color:inherit;text-decoration:none;transition:color .2s}nav ul a:hover{color:var(--amber)}html{scroll-behavior:smooth}section[id],header[id]{scroll-margin-top:70px}footer.slim{padding:34px 6vw}footer.slim .fbot{margin-top:0;border-top:0;padding-top:0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}footer.slim a{color:#c9d1de}footer .credit{font-size:11px;opacity:.6;max-width:640px}
+.mrow{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}.mrow::-webkit-scrollbar{display:none}.mrow.drag{cursor:grabbing}.mrow img{pointer-events:none;-webkit-user-drag:none;user-select:none}.mhint{padding:6px 6vw 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a93a3}
+.mtoggle{display:none;background:none;border:0;width:44px;height:44px;padding:10px;cursor:pointer;flex-direction:column;justify-content:space-between}.mtoggle span{display:block;height:2px;background:#fff;transition:.3s}@media(max-width:820px){.mtoggle{display:flex;height:40px}nav .cta{display:none}nav.open{background:rgba(11,29,58,.98)}nav.open ul{opacity:1;background:#0B1D3A!important;display:flex!important;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(11,29,58,.98);padding:10px 6vw 26px;gap:0}nav.open ul li a{display:block;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)}nav.open .mtoggle span:nth-child(1){transform:translateY(9px) rotate(45deg)}nav.open .mtoggle span:nth-child(2){opacity:0}nav.open .mtoggle span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}}
+</style><?php wp_head(); ?>
+</head><body <?php body_class(); ?>><?php wp_body_open(); ?>
+<header class="hero" id="top">
+<div class="slide"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=70&auto=format&fit=crop" alt="Renewable Energy"></div><div class="slide"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_water_hero-1.jpg" alt="Water treatment plant"></div><div class="slide"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_infrastructure-1.jpg" alt="Expressway interchange"></div><div class="slide"><img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=1600&q=70&auto=format&fit=crop" alt="Pharma"></div><div class="slide"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=70&auto=format&fit=crop" alt="Technology"></div><div class="slide"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=70&auto=format&fit=crop" alt="Finance"></div>
+<div class="shade"></div>
+<nav id="siteNav"><a class="brand" href="#top" aria-label="Mounee Consulting — home"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/logo_color-1.png" alt="Mounee Consulting Services"></a><ul><li><a href="#sectors">Sectors</a></li><li><a href="#approach">Approach</a></li><li><a href="#services">Services</a></li><li><a href="#team">Team</a></li><li><a href="https://mouneeconsulting.hiresome.ai/#jobs-list" target="_blank" rel="noopener">Careers</a></li><li><a href="#contact">Contact</a></li></ul><a class="cta" href="#contact">Hire Talent</a><button class="mtoggle" aria-label="Open menu" aria-expanded="false" onclick="var n=document.getElementById('siteNav');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button></nav>
+<div class="hcopy"><div class="eyebrow">Specialist Recruitment · India &amp; MENA</div><h1>We find the people<br>who <em>build the future.</em></h1><p>Project directors, engineers and specialists for Energy, Water, Infrastructure, Pharma, Technology and Finance — qualified shortlists in three days.</p><div class="btns"><a class="b1" href="mailto:antimamittal@mouneeconsulting.org?subject=Hiring%20Enquiry%20%E2%80%94%20Mounee%20Consulting&body=Hi%20Antima%2C%0A%0AWe%20are%20looking%20to%20hire%20for%20the%20following%20role(s)%3A%0A%0ARole%3A%20%0AIndustry%3A%20%0ALocation%3A%20%0AUrgency%3A%20%0A%0APlease%20get%20in%20touch.%0A%0ACompany%3A%20%0AName%3A%20%0APhone%3A%20">Find Your Next Hire →</a><a class="b2" href="https://mouneeconsulting.hiresome.ai/#jobs-list" target="_blank" rel="noopener">Explore Job Openings →</a></div></div>
+<ul class="ticker"><li><span>Renewable Energy</span><span>01</span></li><li><span>Water</span><span>02</span></li><li><span>Infrastructure</span><span>03</span></li><li><span>Pharma</span><span>04</span></li><li><span>Technology</span><span>05</span></li><li><span>Finance</span><span>06</span></li></ul>
+</header>
+<section class="stats"><div><b>80<i>%</i></b><span>Shortlist → interview</span></div><div><b>3 <i>days</i></b><span>Average to shortlist</span></div><div><b>30K<i>+</i></b><span>Pre-evaluated talent</span></div><div><b>200<i>+</i></b><span>Placements since 2019</span></div></section>
+<section class="sectors" id="sectors"><div class="shead"><div><div class="eyebrow" style="color:var(--blue)">Industries we serve</div><h2 style="margin-top:20px">Deep expertise in the sectors <em>shaping</em> tomorrow.</h2></div><p>From gigawatt-scale solar in Rajasthan to desalination in the Gulf — we know the roles, the workflows and what separates a great hire from an average one.</p></div>
+<div class="mwrap fade-edges"><div class="mrow" data-dir="1" data-secs="60"><div class="marquee m1"><figure class="tile"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=70&auto=format&fit=crop" alt="Renewable Energy" loading="eager"><figcaption><span>01</span>Renewable Energy</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=70&auto=format&fit=crop" alt="Power & Grid" loading="eager"><figcaption><span>02</span>Power & Grid</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_water-1.jpg" alt="Water" loading="eager"><figcaption><span>03</span>Water</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_infrastructure-1.jpg" alt="Infrastructure" loading="eager"><figcaption><span>04</span>Infrastructure</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=70&auto=format&fit=crop" alt="Wind" loading="eager"><figcaption><span>05</span>Wind</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_water_utilities-1.jpg" alt="Water Utilities" loading="eager"><figcaption><span>06</span>Water Utilities</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=70&auto=format&fit=crop" alt="Renewable Energy" loading="eager"><figcaption><span>01</span>Renewable Energy</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=70&auto=format&fit=crop" alt="Power & Grid" loading="eager"><figcaption><span>02</span>Power & Grid</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_water-1.jpg" alt="Water" loading="eager"><figcaption><span>03</span>Water</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_infrastructure-1.jpg" alt="Infrastructure" loading="eager"><figcaption><span>04</span>Infrastructure</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=700&q=70&auto=format&fit=crop" alt="Wind" loading="eager"><figcaption><span>05</span>Wind</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_water_utilities-1.jpg" alt="Water Utilities" loading="eager"><figcaption><span>06</span>Water Utilities</figcaption></figure></div></div><div class="mrow" data-dir="-1" data-secs="70"><div class="marquee m2"><figure class="tile"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=70&auto=format&fit=crop" alt="Finance" loading="eager"><figcaption><span>01</span>Finance</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&q=70&auto=format&fit=crop" alt="Technology" loading="eager"><figcaption><span>02</span>Technology</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=700&q=70&auto=format&fit=crop" alt="Pharma" loading="eager"><figcaption><span>03</span>Pharma</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=700&q=70&auto=format&fit=crop" alt="Life Sciences" loading="eager"><figcaption><span>04</span>Life Sciences</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700&q=70&auto=format&fit=crop" alt="MENA Projects" loading="eager"><figcaption><span>05</span>MENA Projects</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_transport-1.jpg" alt="Transport" loading="eager"><figcaption><span>06</span>Transport</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=70&auto=format&fit=crop" alt="Finance" loading="eager"><figcaption><span>01</span>Finance</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&q=70&auto=format&fit=crop" alt="Technology" loading="eager"><figcaption><span>02</span>Technology</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=700&q=70&auto=format&fit=crop" alt="Pharma" loading="eager"><figcaption><span>03</span>Pharma</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=700&q=70&auto=format&fit=crop" alt="Life Sciences" loading="eager"><figcaption><span>04</span>Life Sciences</figcaption></figure><figure class="tile"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700&q=70&auto=format&fit=crop" alt="MENA Projects" loading="eager"><figcaption><span>05</span>MENA Projects</figcaption></figure><figure class="tile"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_transport-1.jpg" alt="Transport" loading="eager"><figcaption><span>06</span>Transport</figcaption></figure></div></div></div><div class="mhint">Drag or swipe to explore →</div></section>
+<section class="why" id="approach"><div class="img"></div><div class="txt"><div class="eyebrow" style="color:var(--blue)">Our approach</div><h2 style="margin-top:20px">Precision hiring, <em>human</em> judgement.</h2>
+<div class="steps"><div><b>01</b><div><h4>Kickoff &amp; JD deep-dive</h4><p>We learn your project, team and the profile that wins.</p></div></div><div><b>02</b><div><h4>Smart sourcing &amp; screening</h4><p>30,000+ pre-evaluated professionals matched in hours.</p></div></div><div><b>03</b><div><h4>Video assessment</h4><p>Recorded technical evaluations you can review anytime.</p></div></div><div><b>04</b><div><h4>Shortlist in 3 days</h4><p>Candidates that convert — 80% reach interview.</p></div></div></div></div></section>
 
-            <!-- Corporate Training -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                </div>
-                <h3>Corporate Training & Events</h3>
-                <p>Customized training programs and corporate events designed to enhance skills, boost productivity, and foster team collaboration.</p>
-                <ul class="service-features">
-                    <li>Leadership Development</li>
-                    <li>Team Building Workshops</li>
-                    <li>Skills Enhancement</li>
-                    <li>Corporate Events</li>
-                </ul>
-            </div>
+<section class="services" id="services"><div class="shead" style="padding:0"><div><div class="eyebrow" style="color:var(--blue)">What we do</div><h2 style="margin-top:20px">Three ways we <em>strengthen</em> your team.</h2></div><p>One partner across the talent lifecycle — from finding the right leader to building the capability around them.</p></div>
+<div class="svc rail">
+<div><svg viewBox="0 0 40 40"><circle cx="17" cy="17" r="11"/><path d="M25 25l10 10"/></svg><h3>Executive Search &amp; Recruitment</h3><p>Project directors to software engineers. Technical and leadership hiring with smart matching and deep human screening.</p></div>
+<div><svg viewBox="0 0 40 40"><rect x="6" y="9" width="28" height="24"/><path d="M6 16h28M14 5v8M26 5v8"/></svg><h3>HR Operations &amp; Consulting</h3><p>Compliance, performance management, policy design and payroll — specialists who understand your industry.</p></div>
+<div><svg viewBox="0 0 40 40"><path d="M4 15l16-8 16 8-16 8z"/><path d="M11 19v9c5 4 13 4 18 0v-9"/></svg><h3>Training &amp; Development</h3><p>Leadership development, technical upskilling, team building and wellness — capability at every level.</p></div>
+</div><div class="swipe">Swipe →</div></section>
+<section class="reach"><div><div class="eyebrow">Where we work</div><h2 style="margin-top:20px">Rooted in India. <em>Hiring across MENA.</em></h2><p>Talent for projects from Gurugram to Riyadh — local market knowledge, cross-border mobility, one accountable partner.</p></div>
+<div class="locs"><div>India<small>HQ · Gurugram</small></div><div>UAE<small>MENA</small></div><div>Saudi Arabia<small>MENA</small></div><div>Egypt<small>MENA</small></div><div>Uzbekistan<small>CIS</small></div><div>South Africa<small>Africa</small></div></div></section>
 
-            <!-- Wellness -->
-            <div class="service-card">
-                <div class="service-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                </div>
-                <h3>Wellness & Education</h3>
-                <p>Holistic wellness programs and educational services that support employee wellbeing and create healthier, more engaged workplaces.</p>
-                <ul class="service-features">
-                    <li>Wellness Programs</li>
-                    <li>Stress Management</li>
-                    <li>Career Counselling</li>
-                    <li>Personal Development</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<section class="lead" id="team"><div class="shead" style="padding:0"><div><div class="eyebrow" style="color:var(--blue)">Our leadership</div><h2 style="margin-top:20px">The people behind your <em>next great hire.</em></h2></div><p>Recruiters and HR specialists with deep sector experience — accountable to you from kickoff to joining.</p></div>
+<div class="lgrid rail"><figure><div class="ph"><img src="https://mouneeconsulting.org/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-29-at-18.50.54-1-e1738324020720.jpeg" alt="Dr. Parul Sharma"></div><h3>Dr. Parul Sharma</h3><div class="role">Founder & Managing Director</div><p>Leading Mounee's vision with expertise in corporate training, leadership development, and strategic HR consulting.</p><a class="in" href="https://www.linkedin.com/in/dr-parul-sharma-mcs/" target="_blank" rel="noopener">LinkedIn →</a></figure><figure><div class="ph"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/03/antima-mittal.jpg" alt="Antima Mittal"></div><h3>Antima Mittal</h3><div class="role">Co-Founder & Recruitment Director</div><p>Driving end-to-end recruitment delivery and smart sourcing for clients across energy, infrastructure, and technology sectors.</p><a class="in" href="https://www.linkedin.com/in/antima-mittal-0687bab0/" target="_blank" rel="noopener">LinkedIn →</a></figure><figure><div class="ph"><img src="https://mouneeconsulting.org/wp-content/uploads/2023/01/WhatsApp-Image-2023-01-15-at-20.14.25.jpeg" alt="Akansha Gaur"></div><h3>Akansha Gaur</h3><div class="role">HR Specialist</div><p>Expert in talent management, candidate engagement, and recruitment operations across multiple sectors.</p><a class="in" href="https://www.linkedin.com/in/akansha-gaur-hrspecialist/" target="_blank" rel="noopener">LinkedIn →</a></figure></div></section>
+<section class="moments"><div class="shead" style="padding:0"><div><div class="eyebrow" style="color:var(--blue)">Events, workshops &amp; team moments</div><h2 style="margin-top:20px">Life at <em>Mounee.</em></h2></div><p>Training programmes, leadership workshops and the team behind them.</p></div>
+<div class="mgrid rail"><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-16.47.09.jpeg" alt="Corporate Training Event"><span>Corporate Training Event</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-16.50.46.jpeg" alt="Workshop Session"><span>Workshop Session</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-17.06.33.jpeg" alt="Team Building Activity"><span>Team Building Activity</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-17.08.48.jpeg" alt="Training Program"><span>Training Program</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-17.20.34-scaled.jpeg" alt="Corporate Event"><span>Corporate Event</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-17.38.45.jpeg" alt="Leadership Development"><span>Leadership Development</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-17.43.57.jpeg" alt="Group Workshop"><span>Group Workshop</span></div><div><img src="https://mouneeconsulting.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-17.45.34.jpeg" alt="Team Collaboration"><span>Team Collaboration</span></div></div></section>
+<section class="proof"><div class="eyebrow" style="color:var(--blue);justify-content:center">Client voice</div>
+<blockquote>“Mounee delivered a shortlist we could actually interview in three days — and two of the first five became hires.”</blockquote><cite>Head of HR · Renewable energy developer</cite>
+<div class="clients"><div class="ctrack"><span>Renew Power</span><span>Jomiso</span><span>Temflo</span><span>WorkOnGrid</span><span>Fenesta</span><span>DCM Sriram</span><span>Praxia</span><span>L&amp;T</span><span>RR Legal</span><span>Earthing Solutions</span><span>Snug Technologies</span><span>Toy Association of India</span><span>Rudra Rugs</span><span>GT Cargo</span><span>Naagrik Properties</span><span>Anukriti Homes</span><span>One Enterprise</span><span aria-hidden="true">Renew Power</span><span aria-hidden="true">Jomiso</span><span aria-hidden="true">Temflo</span><span aria-hidden="true">WorkOnGrid</span><span aria-hidden="true">Fenesta</span><span aria-hidden="true">DCM Sriram</span><span aria-hidden="true">Praxia</span><span aria-hidden="true">L&amp;T</span><span aria-hidden="true">RR Legal</span><span aria-hidden="true">Earthing Solutions</span><span aria-hidden="true">Snug Technologies</span><span aria-hidden="true">Toy Association of India</span><span aria-hidden="true">Rudra Rugs</span><span aria-hidden="true">GT Cargo</span><span aria-hidden="true">Naagrik Properties</span><span aria-hidden="true">Anukriti Homes</span><span aria-hidden="true">One Enterprise</span></div></div></section>
+<section class="dual"><a href="mailto:antimamittal@mouneeconsulting.org?subject=Hiring%20Enquiry%20%E2%80%94%20Mounee%20Consulting&body=Hi%20Antima%2C%0A%0AWe%20are%20looking%20to%20hire%20for%20the%20following%20role(s)%3A%0A%0ARole%3A%20%0AIndustry%3A%20%0ALocation%3A%20%0AUrgency%3A%20%0A%0APlease%20get%20in%20touch.%0A%0ACompany%3A%20%0AName%3A%20%0APhone%3A%20" style="background-image:url(https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1400&q=70&auto=format&fit=crop)"><div class="eyebrow">For employers</div><h3>Hiring?</h3><p>Tell us the role. Get a qualified shortlist in three days.</p><span class="go">Find Your Next Hire →</span></a>
+<a href="https://mouneeconsulting.hiresome.ai/#jobs-list" target="_blank" rel="noopener" style="background-image:url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=70&auto=format&fit=crop)"><div class="eyebrow">For professionals</div><h3>Your next role.</h3><p>Opportunities across energy, water, infrastructure, pharma, tech and finance.</p><span class="go">Explore Job Openings →</span></a></section>
 
-<!-- Why Choose Us Section -->
-<section class="why-choose-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Why Choose Mounee Consulting?</h2>
-            <p class="section-subtitle">We deliver exceptional recruitment outcomes through our proven approach</p>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <h3>Deep Screening</h3>
-                <p>Rigorous multi-stage evaluation process ensuring only the most qualified candidates reach your desk.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <h3>Industry Expertise</h3>
-                <p>Specialized knowledge across multiple sectors including hospitality, education, automotive, and retail.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <h3>Speed & Efficiency</h3>
-                <p>Rapid turnaround times without compromising quality, getting your positions filled faster.</p>
-            </div>
-
-            <div class="feature-item">
-                <div class="feature-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                </div>
-                <h3>Guarantee</h3>
-                <p>Replacement guarantee ensuring your satisfaction and the right long-term fit for your organization.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Industries Section -->
-<section class="industries-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Industries We Serve</h2>
-            <p class="section-subtitle">Specialized recruitment expertise across diverse sectors</p>
-        </div>
-
-        <div class="industries-grid">
-            <div class="industry-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons8-american-airlines-50.png" alt="Aviation">
-                <span>Aviation & Travel</span>
-            </div>
-            <div class="industry-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons8-beach-48.png" alt="Hospitality">
-                <span>Hospitality</span>
-            </div>
-            <div class="industry-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons8-car-48.png" alt="Automotive">
-                <span>Automotive</span>
-            </div>
-            <div class="industry-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons8-clothes-48.png" alt="Retail">
-                <span>Retail & Fashion</span>
-            </div>
-            <div class="industry-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons8-condo-48.png" alt="Real Estate">
-                <span>Real Estate</span>
-            </div>
-            <div class="industry-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons8-university-48.png" alt="Education">
-                <span>Education</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Team Section -->
-<section class="team-section" id="team">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Our Expert Team</h2>
-            <p class="section-subtitle">Experienced professionals dedicated to your success</p>
-        </div>
-
-        <div class="team-grid">
-            <div class="team-member">
-                <div class="member-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-01-29-at-18.50.54-1-e1738324020720.jpeg" alt="Dr. Parul Sharma">
-                </div>
-                <h3>Dr. Parul Sharma</h3>
-                <p class="member-role">Founder & Managing Director</p>
-                <p class="member-bio">Visionary leader with extensive experience in talent acquisition and organizational development.</p>
-            </div>
-
-            <div class="team-member">
-                <div class="member-placeholder">
-                    <div class="member-initials">AM</div>
-                </div>
-                <h3>Antima Mittal</h3>
-                <p class="member-role">Recruitment Director</p>
-                <p class="member-bio">Experienced HR professional specializing in strategic talent solutions and employee engagement.</p>
-            </div>
-
-            <div class="team-member">
-                <div class="member-image">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2023-01-15-at-20.14.25.jpeg" alt="Akansha Gaur">
-                </div>
-                <h3>Akansha Gaur</h3>
-                <p class="member-role">HR Expert</p>
-                <p class="member-bio">Specialist in recruitment strategy and talent management solutions.</p>
-            </div>
-
-            <div class="team-member">
-                <div class="member-placeholder">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                </div>
-                <h3>Extended Team</h3>
-                <p class="member-role">Specialists</p>
-                <p class="member-bio">Sabita Govindan (HR Specialist), Shachi Kant Sharma (HR Specialist), Nilesh Zope (Holistic Health), Laxmi Rao (EFT/NLP Trainer)</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Gallery Section -->
-<section class="gallery-section" id="gallery">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Our Work in Action</h2>
-            <p class="section-subtitle">Moments from our workshops, training sessions, and corporate events</p>
-        </div>
-
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-16.47.09.jpeg" alt="Corporate Training Event">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-16.50.46.jpeg" alt="Workshop Session">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-17.06.33.jpeg" alt="Team Building Activity">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-17.08.48.jpeg" alt="Training Program">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-17.20.34-scaled.jpeg" alt="Corporate Event">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-17.38.45.jpeg" alt="Leadership Development">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-17.43.57.jpeg" alt="Group Workshop">
-            </div>
-            <div class="gallery-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/WhatsApp-Image-2025-02-03-at-17.45.34.jpeg" alt="Team Collaboration">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Partners Section -->
-<section class="partners-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Our Partners</h2>
-            <p class="section-subtitle">Trusted collaborations that enhance our services</p>
-        </div>
-
-        <div class="partners-grid">
-            <div class="partner-logo">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/MindXL_Transp-removebg-preview.png" alt="MindXL Partner">
-            </div>
-            <div class="partner-logo">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/Screenshot_180-removebg-preview.png" alt="Partner Organization">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="testimonials-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">What Our Clients Say</h2>
-            <p class="section-subtitle">Success stories from organizations we've helped</p>
-        </div>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    <p>"Mounee Consulting helped us find exceptional talent that perfectly aligned with our company culture. Their thorough screening process saved us time and delivered quality candidates."</p>
-                </div>
-                <div class="testimonial-author">
-                    <strong>— Corporate Client</strong>
-                    <span>HR Director</span>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    <p>"The training programs were transformative for our team. Dr. Bansal's expertise and engaging approach made a real difference in our organizational effectiveness."</p>
-                </div>
-                <div class="testimonial-author">
-                    <strong>— Training Participant</strong>
-                    <span>Operations Manager</span>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    <p>"Professional, efficient, and results-driven. Mounee Consulting has been our go-to partner for all recruitment needs. Highly recommended!"</p>
-                </div>
-                <div class="testimonial-author">
-                    <strong>— Business Partner</strong>
-                    <span>CEO</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Job Openings Section -->
-<section class="job-openings-section" id="jobs">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Current Job Openings</h2>
-            <p class="section-subtitle">Explore exciting career opportunities with our partner organizations</p>
-        </div>
-
-        <?php
-        // Query latest job listings
-        $jobs_query = new WP_Query( array(
-            'post_type'      => 'mounee_job',
-            'posts_per_page' => 4,
-            'post_status'    => 'publish',
-            'orderby'        => 'date',
-            'order'          => 'DESC',
-        ) );
-
-        if ( $jobs_query->have_posts() ) :
-        ?>
-            <div class="jobs-grid">
-                <?php while ( $jobs_query->have_posts() ) : $jobs_query->the_post(); 
-                    $company = get_post_meta( get_the_ID(), '_mounee_job_company', true );
-                    $job_type = get_post_meta( get_the_ID(), '_mounee_job_type', true );
-                    $location = wp_get_post_terms( get_the_ID(), 'job_location', array( 'fields' => 'names' ) );
-                    $salary = get_post_meta( get_the_ID(), '_mounee_job_salary', true );
-                ?>
-                    <div class="job-card">
-                        <div class="job-header">
-                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                            <?php if ( $company ) : ?>
-                                <p class="job-company"><?php echo esc_html( $company ); ?></p>
-                            <?php endif; ?>
-                        </div>
-                        <div class="job-meta">
-                            <?php if ( $job_type ) : ?>
-                                <span class="job-type-badge job-type-<?php echo esc_attr( strtolower( str_replace( ' ', '-', $job_type ) ) ); ?>">
-                                    <?php echo esc_html( $job_type ); ?>
-                                </span>
-                            <?php endif; ?>
-                            <?php if ( ! empty( $location ) ) : ?>
-                                <span class="job-location">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                    <?php echo esc_html( $location[0] ); ?>
-                                </span>
-                            <?php endif; ?>
-                            <?php if ( $salary ) : ?>
-                                <span class="job-salary"><?php echo esc_html( $salary ); ?></span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="job-excerpt">
-                            <?php echo wp_trim_words( get_the_excerpt(), 20 ); ?>
-                        </div>
-                        <a href="<?php the_permalink(); ?>" class="job-apply-link">View Details →</a>
-                    </div>
-                <?php endwhile; ?>
-            </div>
-
-            <div class="job-openings-cta">
-                <a href="<?php echo esc_url( get_post_type_archive_link( 'mounee_job' ) ); ?>" class="btn btn-primary">View All Openings</a>
-            </div>
-        <?php 
-        else :
-        ?>
-            <div class="no-jobs-message">
-                <p>New opportunities coming soon. Send us your resume!</p>
-                <a href="#contact" class="btn btn-primary">Contact Us</a>
-            </div>
-        <?php
-        endif;
-        wp_reset_postdata();
-        ?>
-    </div>
-</section>
-
-<!-- CTA Banner Section -->
-<section class="cta-banner">
-    <div class="container">
-        <div class="cta-content">
-            <h2>Ready to Build Your Dream Team?</h2>
-            <p>Let's discuss how we can help you find exceptional talent that drives your business forward.</p>
-            <a href="#contact" class="btn btn-large">Get Started Today</a>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section class="contact-section" id="contact">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Let's start a conversation about your recruitment needs</p>
-        </div>
-
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h3>Contact Information</h3>
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <div>
-                        <strong>Email</strong>
-                        <a href="mailto:<?php echo esc_attr( get_theme_mod( 'mounee_contact_email', 'parul.sharma@mouneeconsulting.org' ) ); ?>">
-                            <?php echo esc_html( get_theme_mod( 'mounee_contact_email', 'parul.sharma@mouneeconsulting.org' ) ); ?>
-                        </a>
-                    </div>
-                </div>
-
-                <?php if ( get_theme_mod( 'mounee_contact_phone' ) ) : ?>
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <div>
-                        <strong>Phone</strong>
-                        <span><?php echo esc_html( get_theme_mod( 'mounee_contact_phone' ) ); ?></span>
-                    </div>
-                </div>
-                <?php endif; ?>
-
-                <?php if ( get_theme_mod( 'mounee_contact_address' ) ) : ?>
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <div>
-                        <strong>Location</strong>
-                        <span><?php echo esc_html( get_theme_mod( 'mounee_contact_address', 'India' ) ); ?></span>
-                    </div>
-                </div>
-                <?php endif; ?>
-
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                    </svg>
-                    <div>
-                        <strong>Website</strong>
-                        <a href="https://mouneeconsulting.org" target="_blank" rel="noopener">mouneeconsulting.org</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <h3>Send Us a Message</h3>
-                <?php 
-                // Contact Form 7 shortcode placeholder
-                // User should install Contact Form 7 plugin and replace [contact-form-7 id="1"] with actual form ID
-                ?>
-                <div class="form-placeholder">
-                    <p><strong>Contact Form 7 Integration</strong></p>
-                    <p>To enable the contact form:</p>
-                    <ol>
-                        <li>Install and activate the <strong>Contact Form 7</strong> plugin</li>
-                        <li>Create a new contact form</li>
-                        <li>Edit front-page.php and replace this placeholder with: <code>[contact-form-7 id="YOUR_FORM_ID"]</code></li>
-                    </ol>
-                    <p>Or use any other contact form plugin of your choice.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<?php
-get_footer();
+<section class="contact" id="contact"><div class="info"><div class="eyebrow" style="color:var(--blue)">Get in touch</div><h2 style="margin-top:20px">Let's solve your <em>talent challenge.</em></h2><p>Tell us about your hiring needs and we'll show you how Mounee Consulting can deliver the right talent, fast.</p>
+<dl><dt>Email</dt><dd><a href="mailto:parul.sharma@mouneeconsulting.org">parul.sharma@mouneeconsulting.org</a><br><a href="mailto:antimamittal@mouneeconsulting.org">antimamittal@mouneeconsulting.org</a></dd><dt>Address</dt><dd>93/18, Sector 11, Gurugram,<br>Haryana – 122001, India</dd></dl></div>
+<form class="cform" id="mouneeContactForm" onsubmit="return sendContactEmail()"><div class="row"><input type="text" id="cf_name" name="name" placeholder="Your Name" required><input type="email" id="cf_email" name="email" placeholder="Your Email" required></div>
+<div class="row"><input type="text" id="cf_company" name="company" placeholder="Company Name"><input type="tel" id="cf_phone" name="phone" placeholder="Phone Number"></div>
+<textarea id="cf_message" name="message" placeholder="Tell us about your hiring needs..." rows="4" required></textarea><button type="submit">Send Message →</button><p id="formStatus"></p></form></section>
+<script>function sendContactEmail(){var g=function(i){return document.getElementById(i).value};var name=g('cf_name'),email=g('cf_email'),company=g('cf_company'),phone=g('cf_phone'),message=g('cf_message');var subject='Website Enquiry from '+name+(company?' ('+company+')':'');var body='Name: '+name+'%0D%0AEmail: '+email+'%0D%0ACompany: '+company+'%0D%0APhone: '+phone+'%0D%0A%0D%0AMessage:%0D%0A'+message;window.location.href='mailto:antimamittal@mouneeconsulting.org?subject='+encodeURIComponent(subject)+'&body='+body;var s=document.getElementById('formStatus');s.style.display='block';s.innerHTML='Opening your email client... If it does not open, please email us directly at antimamittal@mouneeconsulting.org';return false;}</script>
+<footer class="slim"><div class="fbot"><span>© 2026 Mounee Consulting Services Pvt. Ltd. · Gurugram, India</span><span class="credit">Photos: Saiphani02 (expressway), iMahesh (Panaji bridges), Vraj Acharya / WELL Labs (Bengaluru STP), Roen Wainscoat (clarifiers) — <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> via Wikimedia Commons; water plant: Jeremy M. Giacomino, U.S. Marine Corps (public domain); other photos: Unsplash.</span></div></footer>
+<script>(function(){var n=document.getElementById('siteNav');n.querySelectorAll('ul a').forEach(function(a){a.addEventListener('click',function(){n.classList.remove('open')})});function u(){n.classList.toggle('scrolled',window.scrollY>60||location.hash==='#scrolled')}window.addEventListener('scroll',u,{passive:true});u()})();</script>
+<script>(function(){var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;document.querySelectorAll('.mrow').forEach(function(r){var t=r.firstElementChild.children,dir=+r.dataset.dir,secs=+r.dataset.secs,paused=false,ours=false,last=0,pos,tm;function P(){return t[t.length/2].offsetLeft-t[0].offsetLeft}function wrap(){var p=P();while(pos>=p)pos-=p;while(pos<=0)pos+=p}function set(){ours=true;r.scrollLeft=pos}pos=dir<0?P()-1:1;set();r.addEventListener('scroll',function(){if(ours){ours=false;return}var p=P();pos=r.scrollLeft;if(pos>=p-1||pos<=0){wrap();set()}},{passive:true});function hold(){paused=true;clearTimeout(tm)}function release(d){clearTimeout(tm);tm=setTimeout(function(){paused=false;pos=r.scrollLeft},d)}r.addEventListener('mouseenter',hold);r.addEventListener('mouseleave',function(){release(300)});r.addEventListener('touchstart',hold,{passive:true});r.addEventListener('touchend',function(){release(2500)},{passive:true});var dx=null,sl=0;r.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;dx=e.clientX;sl=r.scrollLeft;r.classList.add('drag');e.preventDefault()});window.addEventListener('pointermove',function(e){if(dx===null)return;r.scrollLeft=sl-(e.clientX-dx)});window.addEventListener('pointerup',function(){if(dx===null)return;dx=null;r.classList.remove('drag')});if(rm)return;function f(ts){if(last&&!paused){pos+=dir*P()/secs*Math.min(ts-last,100)/1000;wrap();set()}last=ts;requestAnimationFrame(f)}requestAnimationFrame(f)})})();</script>
+<?php wp_footer(); ?>
+</body></html>

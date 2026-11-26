@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="320" viewBox="0 0 1600 320" fill="none">
+  <g fill="#ffffff">
+    <!-- INFRASTRUCTURE: construction crane + buildings -->
+    <g transform="translate(40,0)">
+      <rect x="0" y="180" width="40" height="140"/>
+      <rect x="55" y="140" width="50" height="180"/>
+      <rect x="120" y="200" width="35" height="120"/>
+      <!-- crane -->
+      <rect x="175" y="60" width="8" height="260"/>
+      <rect x="110" y="60" width="140" height="8"/>
+      <rect x="179" y="40" width="4" height="22"/>
+      <line x1="140" y1="68" x2="140" y2="110" stroke="#ffffff" stroke-width="3"/>
+      <rect x="132" y="110" width="16" height="10"/>
+    </g>
+    <!-- RENEWABLE: wind turbines + solar -->
+    <g transform="translate(330,0)">
+      <rect x="40" y="120" width="8" height="200"/>
+      <g transform="translate(44,120)">
+        <rect x="-3" y="-70" width="6" height="70"/>
+        <rect x="-3" y="0" width="70" height="6" transform="rotate(120)"/>
+        <rect x="-3" y="0" width="70" height="6" transform="rotate(240)"/>
+      </g>
+      <rect x="120" y="150" width="6" height="170"/>
+      <g transform="translate(123,150)">
+        <rect x="-2.5" y="-55" width="5" height="55"/>
+        <rect x="-2.5" y="0" width="55" height="5" transform="rotate(120)"/>
+        <rect x="-2.5" y="0" width="55" height="5" transform="rotate(240)"/>
+      </g>
+      <!-- solar panels -->
+      <g transform="translate(170,270)">
+        <polygon points="0,0 90,0 110,-40 20,-40"/>
+        <rect x="18" y="-38" width="90" height="2" fill="#0B1D3A"/>
+        <line x1="40" y1="0" x2="58" y2="-40" stroke="#0B1D3A" stroke-width="2"/>
+        <line x1="70" y1="0" x2="88" y2="-40" stroke="#0B1D3A" stroke-width="2"/>
+      </g>
+    </g>
+    <!-- IT: server rack + circuit -->
+    <g transform="translate(640,0)">
+      <rect x="20" y="120" width="90" height="200" rx="4"/>
+      <g fill="#0B1D3A">
+        <rect x="30" y="135" width="70" height="14"/>
+        <rect x="30" y="158" width="70" height="14"/>
+        <rect x="30" y="181" width="70" height="14"/>
+        <rect x="30" y="204" width="70" height="14"/>
+        <circle cx="92" cy="142" r="3" fill="#F59E0B"/>
+        <circle cx="92" cy="165" r="3" fill="#F59E0B"/>
+      </g>
+      <!-- circuit -->
+      <g transform="translate(150,160)">
+        <circle cx="0" cy="0" r="8"/>
+        <circle cx="90" cy="0" r="8"/>
+        <circle cx="45" cy="80" r="8"/>
+        <line x1="0" y1="0" x2="90" y2="0" stroke="#ffffff" stroke-width="4"/>
+        <line x1="0" y1="0" x2="45" y2="80" stroke="#ffffff" stroke-width="4"/>
+        <line x1="90" y1="0" x2="45" y2="80" stroke="#ffffff" stroke-width="4"/>
+      </g>
+    </g>
+    <!-- FINANCE: bank columns + bar/line chart -->
+    <g transform="translate(940,0)">
+      <polygon points="0,120 110,120 55,90"/>
+      <rect x="0" y="120" width="110" height="12"/>
+      <rect x="8" y="132" width="12" height="150"/>
+      <rect x="35" y="132" width="12" height="150"/>
+      <rect x="62" y="132" width="12" height="150"/>
+      <rect x="89" y="132" width="12" height="150"/>
+      <rect x="0" y="282" width="110" height="14"/>
+      <!-- chart -->
+      <g transform="translate(150,180)">
+        <rect x="0" y="70" width="18" height="50"/>
+        <rect x="26" y="40" width="18" height="80"/>
+        <rect x="52" y="55" width="18" height="65"/>
+        <rect x="78" y="15" width="18" height="105"/>
+        <polyline points="9,65 35,35 61,50 87,10" fill="none" stroke="#F59E0B" stroke-width="4"/>
+      </g>
+    </g>
+    <!-- transmission tower (bridge sectors) -->
+    <g transform="translate(1270,0)">
+      <polygon points="40,320 10,320 35,90 45,90 70,320 40,320" fill="none" stroke="#ffffff" stroke-width="5"/>
+      <rect x="20" y="150" width="40" height="5"/>
+      <rect x="14" y="210" width="52" height="5"/>
+      <rect x="30" y="80" width="20" height="14"/>
+    </g>
+  </g>
+</svg>

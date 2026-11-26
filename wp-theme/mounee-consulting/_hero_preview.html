@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--color-white:#fff;--color-navy:#0B1D3A;--color-amber:#F59E0B;--spacing-sm:12px;--spacing-md:20px;--spacing-lg:28px;--spacing-2xl:48px;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif}
+h1,h2,h3{font-family:'Playfair Display',serif}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 28px;border-radius:6px;font-weight:600;text-decoration:none}
+.btn-primary{background:var(--color-amber);color:var(--color-navy)}
+.btn-secondary{border:2px solid #fff;color:#fff}
+</style>
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<section class="hero-section" id="home" style="margin-top:0">
+  <div class="hero-background" style="background-image:url('assets/images/10.jpg')"></div>
+  <div class="hero-silhouettes" aria-hidden="true">
+    <div class="silhouette-track" style="background-image:url('assets/images/sector-silhouettes.svg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">Helping Companies Hire the Right Talent</h1>
+      <p class="hero-sectors">Talent for <span class="sector-rotator" data-sectors="Infrastructure,Renewable Energy,IT &amp; Technology,Finance,Pharma,Power &amp; Water"><span class="sector-word">Renewable Energy</span></span></p>
+      <p class="hero-subtitle">Expert recruitment solutions for finding exceptional talent that drives your business forward.</p>
+      <div class="recruitment-process">
+        <div class="process-step"><div class="step-icon">1</div><h3>Understand</h3></div>
+        <div class="process-arrow">&rarr;</div>
+        <div class="process-step"><div class="step-icon">2</div><h3>Source &amp; Screen</h3></div>
+        <div class="process-arrow">&rarr;</div>
+        <div class="process-step"><div class="step-icon">3</div><h3>Evaluate</h3></div>
+        <div class="process-arrow">&rarr;</div>
+        <div class="process-step"><div class="step-icon">4</div><h3>Place</h3></div>
+      </div>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Find Your Next Hire</a>
+        <a href="#" class="btn btn-secondary">Our Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

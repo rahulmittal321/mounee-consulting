@@ -1,4 +1,15 @@
-<?php
+<?php /* SEO: homepage title, description, share image (Nov 27 2026) */
+$mc_t = 'Mounee Consulting | Talent Acquisition & Executive Search'; $mc_d = 'Recruitment and executive search for leadership and white-collar roles across energy, water, pharma, finance and tech. Based in India, hiring worldwide.'; $mc_i = 'https://mouneeconsulting.org/wp-content/uploads/2026/11/og-share.jpg';
+add_filter( 'pre_get_document_title', function () use ( $mc_t ) { return $mc_t; }, 99 );
+add_filter( 'wpseo_title', function () use ( $mc_t ) { return $mc_t; }, 99 );
+add_filter( 'wpseo_opengraph_title', function () use ( $mc_t ) { return $mc_t; }, 99 );
+add_filter( 'wpseo_twitter_title', function () use ( $mc_t ) { return $mc_t; }, 99 );
+add_filter( 'wpseo_metadesc', function () use ( $mc_d ) { return $mc_d; }, 99 );
+add_filter( 'wpseo_opengraph_desc', function () use ( $mc_d ) { return $mc_d; }, 99 );
+add_filter( 'wpseo_twitter_description', function () use ( $mc_d ) { return $mc_d; }, 99 );
+add_action( 'wpseo_add_opengraph_images', function ( $imgs ) use ( $mc_i ) { $imgs->add_image( array( 'url' => $mc_i, 'width' => 1200, 'height' => 630 ) ); } );
+add_filter( 'wpseo_twitter_image', function () use ( $mc_i ) { return $mc_i; }, 99 );
+?><?php
 /* Front page — Meridian redesign (Nov 2026). Previous version: front-page-backup-nov26.php */
 add_action( 'wp_enqueue_scripts', function () {
   wp_dequeue_style( 'mounee-consulting-style' ); wp_dequeue_style( 'mounee-google-fonts' );

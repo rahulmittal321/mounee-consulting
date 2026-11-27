@@ -172,6 +172,16 @@ nav ul a{color:inherit;text-decoration:none;transition:color .2s}nav ul a:hover{
 @keyframes pl{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.2);opacity:0}}
 @media(max-width:820px){.reach2{grid-template-columns:1fr;padding:80px 24px;gap:36px}.rmap{display:none}.clist li{font-size:17px}}
 </style><?php wp_head(); ?>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2DEH2ZK8BB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-2DEH2ZK8BB');
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'',t=(a.textContent||'').trim().slice(0,60);
+if(h.indexOf('mailto:')===0){gtag('event','generate_lead',{method:'email_click',link_text:t});}
+else if(h.indexOf('hiresome.ai')>-1){gtag('event','job_openings_click',{link_text:t});}
+else if(h.indexOf('linkedin.com')>-1){gtag('event','linkedin_click',{link_text:t,link_url:h});}
+else if(h.charAt(0)==='#'&&h.length>1){gtag('event','nav_click',{section:h.slice(1),link_text:t});}},true);
+document.addEventListener('DOMContentLoaded',function(){var cf=document.getElementById('mouneeContactForm');if(cf){cf.addEventListener('submit',function(){gtag('event','generate_lead',{method:'contact_form'});},true);}});
+</script>
 </head><body <?php body_class(); ?>><?php wp_body_open(); ?>
 <header class="hero" id="top">
 <div class="slide"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600&q=70&auto=format&fit=crop" alt="Renewable Energy"></div><div class="slide"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_water_hero-1.jpg" alt="Water treatment plant"></div><div class="slide"><img src="https://mouneeconsulting.org/wp-content/uploads/2026/11/sector_infrastructure-1.jpg" alt="Expressway interchange"></div><div class="slide"><img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=1600&q=70&auto=format&fit=crop" alt="Pharma"></div><div class="slide"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=70&auto=format&fit=crop" alt="Technology"></div><div class="slide"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=70&auto=format&fit=crop" alt="Finance"></div>
